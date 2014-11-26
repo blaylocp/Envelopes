@@ -23,6 +23,9 @@ ${errorMsg}
 </form>
 <h2>Sign up</h2>
 <form action="ValidateUser" method="POST">
+	First Name <br /><input type="text" name="firstName" /><br />
+	Last Name <br /><input type="text" name="lastName" /><br />
+	Email Address <br /><input type="text" name="email" /><br />
 	Username <br /><input type="text" name="username" /><br />
 	Password <br /><input type="password" name="password" /><br />
 	<button type="submit" name="action" value="addUser">Register</button>
