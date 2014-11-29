@@ -23,6 +23,10 @@ ${errorMsg}
     <br/>
 	<a href="assign.jsp">
 		<img class="button" src="images/Envelopes-03.png" alt="Assign"></a>
+         <br/>
+    <br/>
+	<a href="banks.jsp">
+		<img class="button" src="images/Envelopes-04.png" alt="Banks"></a>
 </div>
 </div>
 </body>

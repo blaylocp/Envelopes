@@ -18,7 +18,7 @@
             <h4><strong>${earnings}</strong></h4>
   
 <h2>Budget Envelopes</h2>
-
+<div class="scroll">
 <form action="AssignAmount" method="POST">
      			<c:forEach var="enve" items="${enves}">
                ${enve.name} : ${enve.amount}<br />
@@ -26,6 +26,7 @@
               </c:forEach>
               <button type="submit" name="action" value="CreateAmount">Assign</button>
 	</form>
+    </div>
 </div>
 </div>
 </body>
