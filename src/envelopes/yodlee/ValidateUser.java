@@ -1,11 +1,14 @@
 package envelopes.yodlee;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import envelopes.data.Constants;
 
 /**
  * Servlet implementation class ValidateUser
@@ -39,26 +42,40 @@ public class ValidateUser extends HttpServlet {
 		// TODO Auto-generated method stub
 		LogIn helper = new LogIn();
 		
-		String cobrandSession = helper.loginCobrand("sbCobtravisbaker2009", "ef196540-48ea-43ef-aad5-9f9cac051384");
-		request.getSession().setAttribute("cobrandSessionToken", cobrandSession);
+		String cobrandSession = helper.loginCobrand(Constants.COB_LOGIN, Constants.COB_PASSWORD);
+		request.getSession().setAttribute(Constants.COB_SESSION_TOKEN, cobrandSession);
+		
+		String userSession = null;
+		String errorMsg = null;
 		
 		if (request.getParameter("action").equals("validate")) {
-			String userSession = helper.loginUser(cobrandSession, request.getParameter("username"), 
+			userSession = helper.loginUser(cobrandSession, request.getParameter("username"), 
 					request.getParameter("password"));
 			if (userSession == null) {
-				System.out.println("User could not get signed in. Invalid credentials.");
+				errorMsg = "Could not log in user. Invalid credentials.";
 			}
-			request.getSession().setAttribute("userSessionToken", userSession);
 			
 			// TODO: Add validation here in case errors get returned.
 		} else {
-			String userSession = helper.registerUser(cobrandSession, 
+			userSession = helper.registerUser(cobrandSession, 
 					request.getParameter("username"), request.getParameter("password"), 
 					null, request.getParameter("email"), request.getParameter("firstName"), 
 					request.getParameter("lastName"));
-			request.getSession().setAttribute("userSessionToken", userSession);
+			
+			if (userSession == null) {
+				errorMsg = "Could not register user. Invalid credentials.";
+			}
 		}
-		//helper.searchSite(cobrandSession, userSession, "asdf");
+		
+		if (userSession == null) {
+			request.getSession().setAttribute("errorMsg", errorMsg);
+			request.getRequestDispatcher("login.jsp").forward(request,response);
+		} else {
+			request.getSession().removeAttribute("errorMsg");
+			request.getSession().setAttribute(Constants.USER_SESSION_TOKEN, userSession);
+			request.getRequestDispatcher("home.jsp").forward(request,response);
+		}
+		
 	}
 
 }

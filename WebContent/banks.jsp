@@ -24,8 +24,8 @@
 </form>
 <br>
 <h2>Results</h2>
-<c:forEach var="movie" items="${movies}">
-   <h3 class="scroll">${bank.name}</h3>
+<c:forEach var="bank" items="${banks}">
+   <h3 class="scroll">${bank.displayName}</h3>
   
 </c:forEach>
 </div>
