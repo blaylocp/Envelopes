@@ -25,18 +25,20 @@
 <br>
 <h2>Results</h2>
 <div class="scroll">
-<c:forEach var="movie" items="${movies}">
-   <a href="#login">${bank.name}</a>
-   <div id="login" class="modalLogin">
+<c:forEach var="bank" items="${banks}" varStatus="loop">
+   <a href="#login${bank.siteID}">${bank.displayName}</a>
+   <br />
+   <div id="login${bank.siteID}" class="modalLogin">
 	<div>
 		<a href="#out" title="Close" class="out">X</a>
 		<h2>Login</h2>
-		<p>Login to Bank</p>
+		<p>Login to ${bank.displayName}</p>
 		<form action="ValidateUser" method="POST">
-	Username <br /> <input type="text" name="username" /><br />
-	Password <br /> <input type="password" name="password" /><br />
-	<button type="submit" name="action" value="validate">Login</button>
-</form>
+			Username <br /> <input type="text" name="username" /><br />
+			Password <br /> <input type="password" name="password" /><br />
+			<input type="hidden" name="index" value="${loop.index}" />
+			<button type="submit" name="action" value="validate">Login</button>
+		</form>
 	</div>
 </div>
   
