@@ -14,6 +14,8 @@
 <img id="logo" src="images/Envelopes-01.png" alt="logo"  height="90" width="495">
 <h2>Banks</h2>
 <div class="wrapper">
+
+<p>${bankAddResponse}</p>
  
 <h2>Bank Search</h2>
 
@@ -33,7 +35,7 @@
 		<a href="#out" title="Close" class="out">X</a>
 		<h2>Login</h2>
 		<p>Login to ${bank.displayName}</p>
-		<form action="ValidateUser" method="POST">
+		<form action="ValidateBank" method="POST">
 			Username <br /> <input type="text" name="username" /><br />
 			Password <br /> <input type="password" name="password" /><br />
 			<input type="hidden" name="index" value="${loop.index}" />

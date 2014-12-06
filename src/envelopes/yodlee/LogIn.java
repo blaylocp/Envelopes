@@ -22,13 +22,14 @@ import org.json.JSONObject;
 
 import envelopes.data.Bank;
 import envelopes.data.BankEntity;
+import envelopes.data.LoginForm;
 
 public class LogIn {
 	public static String HOST_URI = "https://rest.developer.yodlee.com/services/srest/restserver/";
 
 	private static String COB_LOGIN_URL = "v1.0/authenticate/coblogin";
 	private static String USER_LOGIN_URL = "v1.0/authenticate/login";
-	private static String ITEM_MTMT_URL = "v1.0/jsonsdk/ItemManagement/getLoginFormForContentService";
+	private static String ITEM_MTMT_URL = "v1.0/jsonsdk/SiteAccountManagement/getSiteLoginForm";
 	private static String SEARCH_SITE_URL = "v1.0/jsonsdk/SiteTraversal/searchSite";
 	private static String USER_REGISTER_URL = "v1.0/jsonsdk/UserRegistration/register3";
 	private static String USER_TRANSAC_SERVICE = "v1.0/jsonsdk/TransactionSearchService/executeUserSearchRequest";
@@ -183,38 +184,55 @@ public class LogIn {
 		return userSessionToken;
 	}
 
-//	public String getLoginFormDetails(String cobrandSessionToken,
-//			String userSessionToken) {
-//		DefaultHttpClient httpclient = new DefaultHttpClient();
-//
-//		String url = HOST_URI + ITEM_MTMT_URL;
-//		try {
-//			HttpsURLConnection
-//					.setDefaultHostnameVerifier(new NullHostnameVerifier());
-//
-//			PostMethod pm = new PostMethod(url);
-//			pm.addParameter(paramNameCobSessionToken, cobrandSessionToken);
-//			pm.addParameter(paramNameUserSessionToken, userSessionToken);
-//			pm.addParameter("contentServiceId", "11175");
-//			pm.addParameter("contentServiceId.objectInstanceType",
-//					"java.lang.Long");
-//
-//			HttpClient hc = new HttpClient();
-//			hc.executeMethod(pm);
-//
-//			String source = pm.getResponseBodyAsString();
-//
-//			System.out.println(pm.getResponseBodyAsString());
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			httpclient.getConnectionManager().shutdown();
-//		}
-//
-//		return userSessionToken;
-//	}
-//
+	public int getLoginFormDetails(String cobrandSessionToken,
+			String userSessionToken, String siteID, String username, String password) {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		
+		int userSiteId = 0;
+
+		String url = HOST_URI + ITEM_MTMT_URL;
+		try {
+			HttpsURLConnection
+					.setDefaultHostnameVerifier(new NullHostnameVerifier());
+			
+			HttpPost pm = new HttpPost(url);
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair(paramNameCobSessionToken, cobrandSessionToken));
+			params.add(new BasicNameValuePair("siteId", siteID));
+			
+			pm.setEntity(new UrlEncodedFormEntity(params));
+
+			CloseableHttpResponse response = httpclient.execute(pm);
+			
+			int status = response.getStatusLine().getStatusCode();
+			
+			String source = null;
+			
+			if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                 source = entity != null ? EntityUtils.toString(entity) : null;
+            }
+			
+			LoginForm login = new LoginForm(new JSONObject(source), siteID, username, password);
+			
+			userSiteId = addSiteAccount(cobrandSessionToken, userSessionToken, login);
+
+			System.out.println(source);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				httpclient.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return userSiteId;
+	}
+
 	public String registerUser(String cobrandSessionToken, String newUsername,
 			String newPassword, String instanceType, String newEmail, String firstName, String lastName) {
 		String userSessionToken = null;
@@ -494,81 +512,51 @@ public class LogIn {
 //		return userSessionToken;
 //	}
 //
-//	public String addSiteAccount(String cobrandSessionToken,
-//			String userSessionToken) {
-//		DefaultHttpClient httpclient = new DefaultHttpClient();
-//
-//		String url = HOST_URI + ADD_SITE_ACC;
-//		try {
-//			HttpsURLConnection
-//					.setDefaultHostnameVerifier(new NullHostnameVerifier());
-//
-//			PostMethod pm = new PostMethod(url);
-//			pm.addParameter(paramNameCobSessionToken, cobrandSessionToken);
-//			pm.addParameter(paramNameUserSessionToken, userSessionToken);
-//
-//			pm.addParameter("credentialFields[0].name", "LOGIN");
-//			pm.addParameter("credentialFields[0].displayName", "Username");
-//			pm.addParameter("credentialFields[0].isEditable", "true");
-//			pm.addParameter("credentialFields[0].isOptional", "false");
-//			pm.addParameter("credentialFields[0].helpText", "22059");
-//			pm.addParameter("credentialFields[0].valuePattern", "null");
-//			pm.addParameter("credentialFields[0].defaultValue", "null");
-//			pm.addParameter("credentialFields[0].value", "test1");
-//			pm.addParameter("credentialFields[0].validValues", "test1");
-//			pm.addParameter("credentialFields[0].displayValidValues", "null");
-//			pm.addParameter("credentialFields[0].valueIdentifier", "LOGIN");
-//			pm.addParameter("credentialFields[0].valueMask", "LOGIN_FIELD");
-//			pm.addParameter("credentialFields[0].fieldType", "LOGIN");
-//			pm.addParameter("credentialFields[0].validationRules", "null");
-//			pm.addParameter("credentialFields[0].size", "20");
-//			pm.addParameter("credentialFields[0].maxlength", "40");
-//			pm.addParameter("credentialFields[0].userProfileMappingExpression",
-//					"null");
-//			pm.addParameter("credentialFields[0].fieldErrorCode", "1");
-//			pm.addParameter("credentialFields[0].fieldErrorMessage", "null");
-//
-//			pm.addParameter("credentialFields[1].name", "PASSWORD");
-//			pm.addParameter("credentialFields[1].displayName", "Password");
-//			pm.addParameter("credentialFields[1].isEditable", "true");
-//			pm.addParameter("credentialFields[1].isOptional", "false");
-//			pm.addParameter("credentialFields[1].helpText", "AUS_Row_Name");
-//			pm.addParameter("credentialFields[1].valuePattern", "null");
-//			pm.addParameter("credentialFields[1].defaultValue", "null");
-//			pm.addParameter("credentialFields[1].value", "test2");
-//			pm.addParameter("credentialFields[1].validValues", "test2");
-//			pm.addParameter("credentialFields[1].displayValidValues", "null");
-//			pm.addParameter("credentialFields[1].valueIdentifier", "PASSWORD");
-//			pm.addParameter("credentialFields[1].valueMask", "LOGIN_FIELD");
-//			pm.addParameter("credentialFields[1].fieldType", "PASSWORD");
-//			pm.addParameter("credentialFields[1].validationRules", "null");
-//			pm.addParameter("credentialFields[1].size", "20");
-//			pm.addParameter("credentialFields[1].maxlength", "40");
-//			pm.addParameter("credentialFields[1].userProfileMappingExpression",
-//					"null");
-//			pm.addParameter("credentialFields[1].fieldErrorCode", "1");
-//			pm.addParameter("credentialFields[1].fieldErrorMessage", "null");
-//			pm.addParameter("credentialFields.objectInstanceType",
-//					"[Lcom.yodlee.common.FieldInfoSingle;");
-//
-//			pm.addParameter("siteId", "8995");
-//			// pm.addParameter("siteId.objectInstanceType", "long");
-//
-//			HttpClient hc = new HttpClient();
-//			hc.executeMethod(pm);
-//
-//			String source = pm.getResponseBodyAsString();
-//
-//			System.out.println(pm.getResponseBodyAsString());
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			httpclient.getConnectionManager().shutdown();
-//		}
-//
-//		return userSessionToken;
-//	}
+	public int addSiteAccount(String cobrandSessionToken,
+			String userSessionToken, LoginForm loginForm) {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		
+		int siteAccountId = 0;
+
+		String url = HOST_URI + ADD_SITE_ACC;
+		try {
+			HttpsURLConnection
+					.setDefaultHostnameVerifier(new NullHostnameVerifier());
+			
+			HttpPost pm = new HttpPost(url);
+			List<NameValuePair> params = loginForm.getFromJsonResult(cobrandSessionToken, userSessionToken);
+			
+			pm.setEntity(new UrlEncodedFormEntity(params));
+
+			CloseableHttpResponse response = httpclient.execute(pm);
+			
+			int status = response.getStatusLine().getStatusCode();
+			
+			String source = null;
+			
+			if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                 source = entity != null ? EntityUtils.toString(entity) : null;
+            }
+			
+			JSONObject jsonObject = new JSONObject(source);
+			// TODO: get the userSiteObject from this.
+			siteAccountId = jsonObject.getInt("siteAccountId");
+			System.out.println(jsonObject);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				httpclient.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return siteAccountId;
+	}
 //
 //	public String getSiteInfo(String cobrandSessionToken,
 //			String userSessionToken) {
