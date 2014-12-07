@@ -2,7 +2,7 @@ DROP DATABASE Envelopes;
 
 CREATE DATABASE Envelopes;
 
-USE envelopes;
+USE Envelopes;
 
 
 CREATE TABLE envelope

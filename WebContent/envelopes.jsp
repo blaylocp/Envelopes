@@ -43,7 +43,7 @@
 </div>
 </div>
 <br />
-<a href="home.jsp">Back</a>
+<a href="Home">Back</a>
 </div>
 </body>
 </html>

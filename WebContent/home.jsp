@@ -17,7 +17,7 @@ ${errorMsg}
 </p>
 	<h2>Budget</h2>
     <br />
-	<a href="envelopes.jsp">
+	<a href="ShowEnvelopes">
 		<img class="button" src="images/Envelopes-02.png" alt="Envelopes"></a>
     <br/>
     <br/>
@@ -26,7 +26,7 @@ ${errorMsg}
 		<img class="button" src="images/Envelopes-03.png" alt="Assign"></a>
          <br/>
     <br/>
-	<a href="banks.jsp">
+	<a href="Banks">
 		<img class="button" src="images/Envelopes-04.png" alt="Banks"></a>
 </div>
 </div>

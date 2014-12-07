@@ -2,6 +2,9 @@ package envelopes.yodlee;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
@@ -285,57 +288,71 @@ public class LogIn {
 
 		return userSessionToken;
 	}
-//
-//	public String transactionSearchService(String cobrandSessionToken,
-//			String userSessionToken, String containerType,
-//			String higherFetchLimit, String lowerFetchLimit, String endNumber,
-//			String startNumber, String clientId, String clientName,
-//			String currencyCode, String fromDate, String toDate,
-//			String transactionSplitType, String ignoreUserInput) {
-//		// String userSessionToken=null;
-//		DefaultHttpClient httpclient = new DefaultHttpClient();
-//
-//		String url = HOST_URI + USER_TRANSAC_SERVICE;
-//		try {
-//			HttpsURLConnection
-//					.setDefaultHostnameVerifier(new NullHostnameVerifier());
-//
-//			PostMethod pm = new PostMethod(url);
-//			pm.addParameter(paramNameCobSessionToken, cobrandSessionToken);
-//			pm.addParameter(paramNameUserSessionToken, userSessionToken);
-//			pm.addParameter(paramNamecontainerType, containerType);
-//			pm.addParameter(paramNamehigherFetchLimit, higherFetchLimit);
-//			pm.addParameter(paramNamelowerFetchLimit, lowerFetchLimit);
-//			pm.addParameter(paramNameendNumber, endNumber);
-//			pm.addParameter(paramNamestartNumber, startNumber);
-//			pm.addParameter(paramNameclientId, clientId);
-//			pm.addParameter(paramNameclientName, clientName);
-//			pm.addParameter(paramNamecurrencyCode, currencyCode);
-//			pm.addParameter(paramNamefromDate, fromDate);
-//			pm.addParameter(paramNametoDate, toDate);
-//			pm.addParameter(paramNametransactionSplitType, transactionSplitType);
-//			pm.addParameter(paramNameignoreUserInput, ignoreUserInput);
-//
-//			HttpClient hc = new HttpClient();
-//			hc.executeMethod(pm);
-//
-//			// String source=pm.getResponseBodyAsString();
-//			// JSONObject jsonObject= new JSONObject(source);
-//			// JSONObject userContext= jsonObject.getJSONObject("userContext");
-//			// JSONObject userConvCreds=
-//			// userContext.getJSONObject("conversationCredentials");
-//			// userSessionToken= (String) userConvCreds.get("sessionToken");
-//
-//			System.out.println(pm.getResponseBodyAsString());
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			httpclient.getConnectionManager().shutdown();
-//		}
-//
-//		return null;
-//	}
+
+	public String transactionSearchService(String cobrandSessionToken,
+			String userSessionToken) {
+		// String userSessionToken=null;
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+
+		String url = HOST_URI + USER_TRANSAC_SERVICE;
+		try {
+			HttpsURLConnection
+					.setDefaultHostnameVerifier(new NullHostnameVerifier());
+			
+			HttpPost pm = new HttpPost(url);
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair(paramNameCobSessionToken, cobrandSessionToken));
+			params.add(new BasicNameValuePair(paramNameUserSessionToken, userSessionToken));
+			params.add(new BasicNameValuePair(paramNamecontainerType, "all"));
+			params.add(new BasicNameValuePair(paramNamelowerFetchLimit, "1"));
+			params.add(new BasicNameValuePair(paramNamehigherFetchLimit, "500"));
+			params.add(new BasicNameValuePair(paramNameendNumber, "500"));
+			params.add(new BasicNameValuePair(paramNamestartNumber, "1"));
+			params.add(new BasicNameValuePair(paramNameclientId, "1"));
+			params.add(new BasicNameValuePair(paramNameclientName, "DataSearchService"));
+			params.add(new BasicNameValuePair(paramNamecurrencyCode, "USD"));
+			
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.MONTH, -1);
+			String lastMonthBegin = calendar.get(Calendar.MONTH) + "-" + "1" 
+					+ "-" + calendar.get(Calendar.YEAR);
+			
+			String lastMonthEnd = calendar.get(Calendar.MONTH) + "-" + calendar.getActualMaximum(Calendar.DAY_OF_MONTH) 
+					+ "-" + calendar.get(Calendar.YEAR);			
+			
+			params.add(new BasicNameValuePair(paramNamefromDate, lastMonthBegin)); //TODO change to date
+			params.add(new BasicNameValuePair(paramNametoDate, lastMonthEnd)); //TODO change to date
+			params.add(new BasicNameValuePair(paramNameignoreUserInput, "true"));
+			params.add(new BasicNameValuePair(paramNametransactionSplitType, "ALL_TRANSACTION"));
+			
+			pm.setEntity(new UrlEncodedFormEntity(params));
+
+			CloseableHttpResponse response = httpclient.execute(pm);
+			
+			int status = response.getStatusLine().getStatusCode();
+			
+			String source = null;
+			
+			if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                 source = entity != null ? EntityUtils.toString(entity) : null;
+            }
+
+			System.out.println(source);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				httpclient.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
 //
 //	public String getItemSummaries(String cobrandSessionToken,
 //			String userSessionToken) {

@@ -1,10 +1,10 @@
 package envelopes.data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Parameter;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -12,8 +12,15 @@ public class EnvelopeHandler {
 	
 	private EntityManager em = null;
 	
-	public List<Envelope> getEnvelopes() {
-		em = Persistence.createEntityManagerFactory("EnvelopeJPA").createEntityManager();
+	public List<Envelope> getEnvelopes() {		
+		Map<String, String> env = System.getenv();
+		Map<String, Object> configOverrides = new HashMap<String, Object>();
+		
+		String url = "jdbc:mysql://" + env.get("OPENSHIFT_MYSQL_DB_HOST") + ":" + env.get("OPENSHIFT_MYSQL_DB_PORT") + "/Envelopes";
+		
+		configOverrides.put("javax.persistence.jdbc.url", url);
+		
+		em = Persistence.createEntityManagerFactory("EnvelopeJPA", configOverrides).createEntityManager();
 		List<Envelope> envle = null;
 		
 		Query query = em.createQuery("SELECT e FROM Envelope e");
@@ -25,7 +32,14 @@ public class EnvelopeHandler {
 	}
 	
 	public void addEnvelope(String name) {
-		em = Persistence.createEntityManagerFactory("EnvelopeJPA").createEntityManager();
+		Map<String, String> env = System.getenv();
+		Map<String, Object> configOverrides = new HashMap<String, Object>();
+		
+		String url = "jdbc:mysql://" + env.get("OPENSHIFT_MYSQL_DB_HOST") + ":" + env.get("OPENSHIFT_MYSQL_DB_PORT") + "/Envelopes";
+		
+		configOverrides.put("javax.persistence.jdbc.url", url);
+		
+		em = Persistence.createEntityManagerFactory("EnvelopeJPA", configOverrides).createEntityManager();
 		em.getTransaction().begin(); 
 
 		Envelope envelope = new Envelope(name);
@@ -38,7 +52,14 @@ public class EnvelopeHandler {
 	}
 	
 	public void deleteEnvelope(String id) {
-		em = Persistence.createEntityManagerFactory("EnvelopeJPA").createEntityManager();
+		Map<String, String> env = System.getenv();
+		Map<String, Object> configOverrides = new HashMap<String, Object>();
+		
+		String url = "jdbc:mysql://" + env.get("OPENSHIFT_MYSQL_DB_HOST") + ":" + env.get("OPENSHIFT_MYSQL_DB_PORT") + "/Envelopes";
+		
+		configOverrides.put("javax.persistence.jdbc.url", url);
+		
+		em = Persistence.createEntityManagerFactory("EnvelopeJPA", configOverrides).createEntityManager();
 		em.getTransaction().begin(); 
 		Envelope envelope = em.find(Envelope.class, Integer.parseInt(id));
 		em.remove(envelope);
@@ -49,7 +70,14 @@ public class EnvelopeHandler {
 	}
 	
 	public void updateEnvelope(String id, String amount) {
-		em = Persistence.createEntityManagerFactory("EnvelopeJPA").createEntityManager();
+		Map<String, String> env = System.getenv();
+		Map<String, Object> configOverrides = new HashMap<String, Object>();
+		
+		String url = "jdbc:mysql://" + env.get("OPENSHIFT_MYSQL_DB_HOST") + ":" + env.get("OPENSHIFT_MYSQL_DB_PORT") + "/Envelopes";
+		
+		configOverrides.put("javax.persistence.jdbc.url", url);
+		
+		em = Persistence.createEntityManagerFactory("EnvelopeJPA", configOverrides).createEntityManager();
 		em.getTransaction().begin(); 
 		Envelope envelope = em.find(Envelope.class, Integer.parseInt(id));
 		envelope.setEnvelope_amount(Double.parseDouble(amount));
