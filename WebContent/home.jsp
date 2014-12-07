@@ -21,7 +21,8 @@ ${errorMsg}
 		<img class="button" src="images/Envelopes-02.png" alt="Envelopes"></a>
     <br/>
     <br/>
-	<a href="assign.jsp">
+	<!--<a href="assign.jsp">-->
+	<a href="<c:url value="/AssignAmt" />">
 		<img class="button" src="images/Envelopes-03.png" alt="Assign"></a>
          <br/>
     <br/>

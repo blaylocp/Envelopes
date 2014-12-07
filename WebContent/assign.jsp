@@ -19,13 +19,17 @@
   
 <h2>Budget Envelopes</h2>
 <div class="scroll">
-<form action="AssignAmount" method="POST">
+
      			<c:forEach var="enve" items="${enves}">
-               ${enve.name} : ${enve.amount}<br />
-               <input type="text" name="txtAmount" placeholder="Input Budget Amount">
+     				<br>
+     				<form action="AssignAmt" method="POST">
+               		${enve.category_name} : ${enve.envelope_amount}
+               		<input type="text" name="envelope_update" placeholder="Input Budget Amount" value="${enve.envelope_amount}">
+               		<input type="hidden" name="envelope_id" value="${enve.category_id}" >
+                	<button type="submit" name="action" value="CreateAmount + ${enve.category_id}">Assign</button>
+					</form>
               </c:forEach>
-              <button type="submit" name="action" value="CreateAmount">Assign</button>
-	</form>
+
     </div>
 </div>
 </div>

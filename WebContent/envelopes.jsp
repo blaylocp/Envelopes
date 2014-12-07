@@ -21,8 +21,10 @@
  			Current Envelopes
             <br />
 
+
+              
               <c:forEach var="enve" items="${enves}">
-               <input type="checkbox" name="txtName" value="${enve.name}">${enve.name}:<br />
+               <input type="checkbox" name="category_list" value="${enve.category_id}">${enve.category_name}:<br />
               </c:forEach>
 
 <br>
@@ -41,7 +43,7 @@
 </div>
 </div>
 <br />
-<a href="home.html">Back</a>
+<a href="home.jsp">Back</a>
 </div>
 </body>
 </html>
