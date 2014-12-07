@@ -32,13 +32,12 @@ public class ShowEnvelopes extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		EnvelopeHandler eh = new EnvelopeHandler(); 
+		EnvelopeHandler eh = new EnvelopeHandler();
 
 		// TODO: Change this to get only the envelopes for the correct user.
 		
-		request.setAttribute("enves", eh.getEnvelopes());
-		response.sendRedirect("Envelopes");
-		//request.getRequestDispatcher("envelopes.jsp").forward(request, response);
+		request.getSession().setAttribute("enves", eh.getEnvelopes());
+		request.getRequestDispatcher("envelopes.jsp").forward(request, response);
 	}
 
 	/**

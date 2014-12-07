@@ -69,11 +69,11 @@ public class ValidateUser extends HttpServlet {
 		
 		if (userSession == null) {
 			request.getSession().setAttribute("errorMsg", errorMsg);
-			request.getRequestDispatcher("login.jsp").forward(request,response);
+			response.sendRedirect("SignIn");
 		} else {
 			request.getSession().removeAttribute("errorMsg");
 			request.getSession().setAttribute(Constants.USER_SESSION_TOKEN, userSession);
-			request.getRequestDispatcher("home.jsp").forward(request,response);
+			response.sendRedirect("Home");
 		}
 		
 	}
