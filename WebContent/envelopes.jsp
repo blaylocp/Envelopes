@@ -22,14 +22,15 @@
             <br />
 
 
-              
+              <div class="scroll">
               <c:forEach var="enve" items="${enves}">
                <input type="checkbox" name="category_list" value="${enve.category_id}">${enve.category_name}:<br />
               </c:forEach>
 
 <br>
 <button type="submit" name="action" value="DeleteEnvelope">Delete</button>
-</form> 
+</form>
+</div> 
 </div>
 <div class="col2">
 <form action="CreateEnvelope" method="POST">
