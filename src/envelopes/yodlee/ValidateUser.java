@@ -72,6 +72,7 @@ public class ValidateUser extends HttpServlet {
 			response.sendRedirect("SignIn");
 		} else {
 			request.getSession().removeAttribute("errorMsg");
+			request.getSession().setAttribute(Constants.USERNAME, request.getParameter("username"));
 			request.getSession().setAttribute(Constants.USER_SESSION_TOKEN, userSession);
 			response.sendRedirect("Home");
 		}

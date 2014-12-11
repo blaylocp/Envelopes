@@ -3,8 +3,6 @@ package envelopes.yodlee;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
@@ -26,6 +24,7 @@ import org.json.JSONObject;
 import envelopes.data.Bank;
 import envelopes.data.BankEntity;
 import envelopes.data.LoginForm;
+import envelopes.data.Transaction;
 
 public class LogIn {
 	public static String HOST_URI = "https://rest.developer.yodlee.com/services/srest/restserver/";
@@ -289,10 +288,12 @@ public class LogIn {
 		return userSessionToken;
 	}
 
-	public String transactionSearchService(String cobrandSessionToken,
+	public List<Transaction> transactionSearchService(String cobrandSessionToken,
 			String userSessionToken) {
 		// String userSessionToken=null;
 		CloseableHttpClient httpclient = HttpClients.createDefault();
+		
+		List<Transaction> myTransactions = new ArrayList<Transaction>();
 
 		String url = HOST_URI + USER_TRANSAC_SERVICE;
 		try {
@@ -339,6 +340,14 @@ public class LogIn {
             }
 
 			System.out.println(source);
+			
+			JSONObject json = new JSONObject(source);
+			
+			JSONArray transactions = json.getJSONObject("searchResult").getJSONArray("transactions");
+			
+			for (int i = 0; i < transactions.length(); i++) {
+				myTransactions.add(new Transaction(transactions.getJSONObject(i)));
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -351,7 +360,7 @@ public class LogIn {
 			}
 		}
 
-		return null;
+		return myTransactions;
 	}
 //
 //	public String getItemSummaries(String cobrandSessionToken,

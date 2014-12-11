@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import envelopes.data.Envelope;
+import envelopes.data.Constants;
 import envelopes.data.EnvelopeHandler;
 
 /**
@@ -41,7 +41,7 @@ public class CreateEnvelope extends HttpServlet {
 		String envelope = request.getParameter("enve");
 		
 		EnvelopeHandler eh = new EnvelopeHandler(); 
-		eh.addEnvelope(envelope);
+		eh.addEnvelope(envelope, (String) request.getSession().getAttribute(Constants.USERNAME));
 		
 		response.sendRedirect("ShowEnvelopes");
 		

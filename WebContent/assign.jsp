@@ -10,12 +10,12 @@
 </head>
 <body>
 <div class="bodywrap">
-<img id="logo" src="images/Envelopes-01.png" alt="logo"  height="90" width="495">
+<a href="Home"><img id="logo" src="images/Envelopes-01.png" alt="logo"  height="90" width="495"></a>
 <h2>Assign</h2>
 <div class="wrapper">
 
 <h3>Total Earnings</h3>
-            <h4><strong>${earnings}</strong></h4>
+            <h4><strong>${lastMonthTotal}</strong></h4>
   
 <h2>Budget Envelopes</h2>
 <div class="scroll">

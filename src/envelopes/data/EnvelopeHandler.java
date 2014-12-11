@@ -31,7 +31,7 @@ public class EnvelopeHandler {
 		return envle;
 	}
 	
-	public void addEnvelope(String name) {
+	public void addEnvelope(String name, String username) {
 		Map<String, String> env = System.getenv();
 		Map<String, Object> configOverrides = new HashMap<String, Object>();
 		
@@ -43,6 +43,7 @@ public class EnvelopeHandler {
 		em.getTransaction().begin(); 
 
 		Envelope envelope = new Envelope(name);
+		envelope.setCustomer_username(username);
 		
 		em.persist(envelope);
 
