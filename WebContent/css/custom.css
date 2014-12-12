@@ -155,3 +155,128 @@ input:focus{
 	}
 
 	.out:hover { background: #00d9ff; }
+
+	<!--------------------------------------------------------App Store Code-------------------------------->
+	.ss{
+	margin-top:15%;
+	
+}
+.coll1, .coll2, .coll3{
+    min-height: 450px;
+	width:33%;
+}
+.bodywrapapp{
+	height:800px;
+	width:90%;
+	background: -moz-linear-gradient(#fff, #c3c3c3);
+		background: -webkit-linear-gradient(#fff, #c3c3c3);
+		background: -o-linear-gradient(#fff, #c3c3c3);
+	text-align:center;
+	display:inline-block;
+	 outline: none !important;
+	 box-shadow: 0 0 10px #719ECE;
+	 border:1px solid white;
+	
+}
+h3{	
+	font-family:verdana, arial, sans-serif;
+	text-transform:uppercase;
+	color:#5A717A;
+}
+h4{	
+	font-family:verdana, arial, sans-serif;
+	text-transform:uppercase;
+	color:#5A717A;
+	margin: 16 5 -16px 5;
+}
+ul{
+	text-decoration: none;
+	list-style-type: none;
+}
+li{
+	text-decoration: none;
+	text-align: center;
+	font-family:verdana, arial, sans-serif;
+	color:#fff;
+}
+
+.modalss {
+		position: fixed;
+		font-family: Arial, Helvetica, sans-serif;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: rgba(0,0,0,0.8);
+		z-index: 99999;
+		opacity:0;
+		-webkit-transition: opacity 400ms ease-in;
+		-moz-transition: opacity 400ms ease-in;
+		transition: opacity 400ms ease-in;
+		pointer-events: none;
+		display:inline-block;
+	}
+
+	.modalss:target {
+		opacity:1;
+		pointer-events: auto;
+	}
+
+	.modalss > div {
+		display:inline-block;
+		width: 400px;
+		position: relative;
+		margin: 10% auto;
+		padding: 5px 20px 74px 20px;
+        border: 4px solid;
+		border-radius: 10px;
+		background: #fff;
+		background: -moz-linear-gradient(#fff, #c3c3c3);
+		background: -webkit-linear-gradient(#fff, #c3c3c3);
+		background: -o-linear-gradient(#fff, #c3c3c3);
+	}
+
+	.outss {
+		background: #606061;
+		color: #FFFFFF;
+		line-height: 25px;
+		position: absolute;
+		right: 270px;
+		text-align: center;
+		top: 238px;
+		width: 24px;
+		text-decoration: none;
+		font-weight: bold;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 3px #000;
+		-webkit-box-shadow: 1px 1px 3px #000;
+		box-shadow: 1px 1px 3px #000;
+	}
+
+	.outss:hover { background: red; }
+	.get{
+		position:absolute;
+		top:9%;
+		left:58%;
+		height:40px;
+		width:100px;
+		color:white;
+		background-color:green;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 3px #000;
+		-webkit-box-shadow: 1px 1px 3px #000;
+		box-shadow: 1px 1px 3px #000;
+	}
+	.get a{
+		position:absolute;
+		color:white;
+		font-weight: bold;
+		text-decoration: none;
+		top:11px;
+		right:34px;
+		font-family: Arial, Helvetica, sans-serif;
+	}
