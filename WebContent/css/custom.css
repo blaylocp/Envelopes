@@ -257,13 +257,13 @@ li{
 
 	.outss:hover { background: red; }
 	.get{
-		position:absolute;
-		top:9%;
-		left:58%;
+		position:relative;
+		float:none;
 		height:40px;
 		width:100px;
 		color:white;
-		background-color:green;
+		margin:0px 15px 15px 70%;
+		background-color:#50A0E8;
 		-webkit-border-radius: 12px;
 		-moz-border-radius: 12px;
 		border-radius: 12px;

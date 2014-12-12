@@ -11,6 +11,7 @@
 <body>
 <div class="bodywrapapp">
 <a href="Home"><img id="logo" src="images/Envelopes-01.png" alt="logo"  height="90" width="495"></a>
+<div class="get"><a href="SignIn">GET</a></div>
 <h2>Budgeting What You Have</h2>
 
  
@@ -41,7 +42,7 @@
 	<p>Note: This is simply a trial version. To Login you will need the folling information:</p>
 	<p><strong>User:</strong> sbMemtravisbaker20091</p> <p><strong>Password:</strong>  sbMemtravisbaker20091#123</p>
 </div>
-<div class="get"><a href="SignIn">GET</a></div>
+
 	
 </div>
 
