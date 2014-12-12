@@ -33,11 +33,11 @@
 </ul>
 <a href="#openss">See Screenshots</a>
 <div id="openss" class="modalss">
-	<a href="#outss" title="Close" class="outss">X</a>
+	
 	<h2>Screenshots</h2>
 	<div class="coll1"><h3>Login and customize</h3><img class="ss" src="images/ss2.png" height="400"></div>
 	<div class="coll2"><h3>Find your bank!</h3><img class="ss" src="images/ss1.png" height="400"></div>
-	<div class="coll3"><h3>Wonderful Homescreen</h3><img class="ss" src="images/ss3.png" height="400"></div>
+	<div class="coll3"><h3>Wonderful Homescreen</h3><a href="#outss" title="Close" class="outss">X</a><img class="ss" src="images/ss3.png" height="400"></div>
 </div>
 	<p>Note: This is simply a trial version. To Login you will need the folling information:</p>
 	<p><strong>User:</strong> sbMemtravisbaker20091</p> <p><strong>Password:</strong>  sbMemtravisbaker20091#123</p>
