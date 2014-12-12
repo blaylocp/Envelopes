@@ -41,7 +41,7 @@
 	<p>Note: This is simply a trial version. To Login you will need the folling information:</p>
 	<p><strong>User:</strong> sbMemtravisbaker20091</p> <p><strong>Password:</strong>  sbMemtravisbaker20091#123</p>
 </div>
-<div class="get"><a href="Login">GET</a></div>
+<div class="get"><a href="SignIn">GET</a></div>
 	
 </div>
 
