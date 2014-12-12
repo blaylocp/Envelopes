@@ -48,6 +48,7 @@ body{
 }
 .button{
 	margin-bottom:34px;
+	max-width: 360px;
 }
 
 h2{	
@@ -89,10 +90,9 @@ input:focus{
 	text-align:center;
 	color:#FFF;
 }
-	.button{
+.button{
 	margin-bottom:34px;
-	height:35px;
-	width:243px;
+	width: 280px;
 }
 #logo{
 	display:inline-block;

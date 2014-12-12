@@ -18,16 +18,16 @@ ${errorMsg}
 	<h2>Budget</h2>
     <br />
 	<a href="ShowEnvelopes">
-		<img class="button" src="images/Envelopes-02.png" alt="Envelopes"></a>
+		<img class="button" src="images/Envelopes-02.png" alt="Envelopes"/></a>
     <br/>
     <br/>
 	<!--<a href="assign.jsp">-->
-	<a href="<c:url value="/AssignAmt" />">
-		<img class="button" src="images/Envelopes-03.png" alt="Assign"></a>
+	<a href="<c:url value="/AssignAmt"/>">
+		<img class="button" src="images/Envelopes-03.png" alt="Assign"/></a>
          <br/>
     <br/>
 	<a href="Banks">
-		<img class="button" src="images/Envelopes-04.png" alt="Banks"></a>
+		<img class="button" src="images/Envelopes-04.png" alt="Banks"/></a>
 </div>
 </div>
 </body>
